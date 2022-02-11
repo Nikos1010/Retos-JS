@@ -50,6 +50,7 @@ function verificarSaldo(saldoARetirar) {
       mostrarAlerta("Cantidad imposible de sacar, solo multiplos de 10.000");
     }
   }
+  restablecerValores();
 }
 
 function validarBilletes(validar) {
@@ -104,7 +105,7 @@ function mostrarRetiroHTML() {
   billete50Parrafo.textContent = "Cantidad de billetes de $50.000: ";
 
   const billete50Span = document.createElement("span");
-  billete50Span.textContent = variaBillete50;
+  billete50Span.textContent = parseInt(variaBillete50);
 
   billete50Parrafo.appendChild(billete50Span);
 
@@ -117,4 +118,11 @@ function limpiarHTML() {
   while (dinero.firstChild) {
     dinero.removeChild(dinero.firstChild);
   }
+}
+
+function restablecerValores() {
+  variaBillete10 = 1;
+  variaBillete20 = 1;
+  variaBillete50 = 0;
+  total = 0;
 }
