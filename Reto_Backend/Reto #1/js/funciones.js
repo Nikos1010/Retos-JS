@@ -1,9 +1,7 @@
 const formulario = document.querySelector("#formulario");
 const dinero = document.querySelector("#dinero");
 const retiro = document.querySelector("#retiro");
-let totalBilletesDeDiez;
-let totalBilletesDeVeinte;
-let totalBilletesDeCincuenta;
+let totalBilletesDeDiez, totalBilletesDeVeinte, totalBilletesDeCincuenta;
 
 export function saldo(e) {
   e.preventDefault();
@@ -17,28 +15,13 @@ export function saldo(e) {
   }
 
   //Se verifica el saldo
-  verificarSaldo(parseInt(retiro));
+  verificarSaldo(Number(retiro));
   formulario.reset();
 }
 
 function verificarSaldo(saldoARetirar) {
   if (saldoARetirar % 10000 === 0) {
-    if (saldoARetirar > 50000) {
-      let saldoBilletesDeCincuenta = saldoARetirar - 50000;
-      if (saldoBilletesDeCincuenta >= 50000) {
-        totalBilletesDeCincuenta = saldoBilletesDeCincuenta / 50000;
-        saldoBilletesDeCincuenta =
-          saldoARetirar - parseInt(totalBilletesDeCincuenta) * 50000;
-        validarBilletes(saldoBilletesDeCincuenta);
-        mostrarRetiroHTML();
-
-        return;
-      }
-      validarBilletes(saldoARetirar);
-    } else {
-      validarBilletes(saldoARetirar);
-      totalBilletesDeCincuenta = 0;
-    }
+    calcularBilletesDeCincuenta(saldoARetirar);
 
     mostrarRetiroHTML();
   } else {
@@ -48,13 +31,29 @@ function verificarSaldo(saldoARetirar) {
   }
 }
 
-function validarBilletes(saldoRestante) {
+function calcularBilletesDeCincuenta(saldoARetirar) {
+  if (saldoARetirar - 50000 >= 50000) {
+    totalBilletesDeCincuenta = (saldoARetirar - 50000) / 50000;
+    saldoARetirar -= parseInt(totalBilletesDeCincuenta) * 50000;
+  } else {
+    totalBilletesDeCincuenta = 0;
+  }
+
+  console.log(totalBilletesDeCincuenta);
+  calcularBilletesDeDiez(saldoARetirar);
+  calcularBilletesDeVeinte(saldoARetirar);
+}
+
+function calcularBilletesDeDiez(saldoRestante) {
   totalBilletesDeDiez = saldoRestante / 10000;
   if (totalBilletesDeDiez % 2 === 0) {
     totalBilletesDeDiez = 2;
   } else {
     totalBilletesDeDiez = 1;
   }
+}
+
+function calcularBilletesDeVeinte(saldoRestante) {
   saldoRestante -= 10000 * totalBilletesDeDiez;
   totalBilletesDeVeinte = saldoRestante / 20000;
 }
