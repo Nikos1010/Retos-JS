@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cajero Automatico</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h2 class="text-center my-5 titulo">Cajero Automatico</h2>
+    <div class="container mt-5 p-5">
+        <div id="contenido" class="row">
+            <div class="col-md-6 agregar-cita">
+                <form id="formulario">
+                    <legend class="mb-4">Ingrese la cantidad a sacar:</legend>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-lg-4 col-form-label">Cantidad:</label>
+                        <div class="col-sm-8 col-lg-8">
+                            <input type="number" value="0" min="0" id="cantidad" name="cantidad" class="form-control"
+                                placeholder="Cantidad de dinero">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success w-100 d-block">Retirar saldo</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2 id="retiro" class="mb-4 text-center">Esperando Retiro</h2>
+                <div id="dinero" class="list-group lista-citas"></div>
+            </div>
+        </div>
+        <!--.row-->
+    </div>
+    <!--.container-->
+
+    <script src="js/app.js" type="module"></script>
+
+</body>
+
+</html>
