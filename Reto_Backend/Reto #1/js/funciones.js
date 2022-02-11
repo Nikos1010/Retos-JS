@@ -1,13 +1,9 @@
 const formulario = document.querySelector("#formulario");
 const dinero = document.querySelector("#dinero");
 const retiro = document.querySelector("#retiro");
-const billete10k = 10000;
-const billete50k = 50000;
-let variaBillete10 = 1;
-let variaBillete20 = 1;
-let variaBillete50 = 0;
-let total = 0;
-let probar;
+let totalBilletesDeDiez;
+let totalBilletesDeVeinte;
+let totalBilletesDeCincuenta;
 
 export function saldo(e) {
   e.preventDefault();
@@ -16,7 +12,7 @@ export function saldo(e) {
   const campoVacio = [retiro].some((campo) => campo === "0");
 
   if (campoVacio) {
-    mostrarAlerta("Error con la cantidad Ingresada");
+    mostrarAlerta(`Error con la cantidad Ingresada: $${retiro}`);
     return;
   }
 
@@ -26,40 +22,41 @@ export function saldo(e) {
 }
 
 function verificarSaldo(saldoARetirar) {
-  if (saldoARetirar < 10000) {
-    mostrarAlerta("Error, la cantidad requerida es muy baja");
-  } else {
-    if (saldoARetirar % billete10k === 0) {
-      if (saldoARetirar > billete50k) {
-        total = saldoARetirar - billete50k;
-        if (total >= billete50k) {
-          variaBillete50 = total / billete50k;
-          total = saldoARetirar - parseInt(variaBillete50) * billete50k;
-          validarBilletes(total);
-          mostrarRetiroHTML();
+  if (saldoARetirar % 10000 === 0) {
+    if (saldoARetirar > 50000) {
+      let saldoBilletesDeCincuenta = saldoARetirar - 50000;
+      if (saldoBilletesDeCincuenta >= 50000) {
+        totalBilletesDeCincuenta = saldoBilletesDeCincuenta / 50000;
+        saldoBilletesDeCincuenta =
+          saldoARetirar - parseInt(totalBilletesDeCincuenta) * 50000;
+        validarBilletes(saldoBilletesDeCincuenta);
+        mostrarRetiroHTML();
 
-          return;
-        }
-        validarBilletes(saldoARetirar);
-      } else {
-        validarBilletes(saldoARetirar);
+        return;
       }
-
-      mostrarRetiroHTML();
+      validarBilletes(saldoARetirar);
     } else {
-      mostrarAlerta("Cantidad imposible de sacar, solo multiplos de 10.000");
+      validarBilletes(saldoARetirar);
+      totalBilletesDeCincuenta = 0;
     }
+
+    mostrarRetiroHTML();
+  } else {
+    mostrarAlerta(
+      `Cantidad de $${saldoARetirar} no es permitida, solo multiplos de $10.000`
+    );
   }
-  restablecerValores();
 }
 
-function validarBilletes(validar) {
-  variaBillete20 = validar / 10000;
-  if (variaBillete20 % 2 === 0) {
-    variaBillete10 = 2;
+function validarBilletes(saldoRestante) {
+  totalBilletesDeDiez = saldoRestante / 10000;
+  if (totalBilletesDeDiez % 2 === 0) {
+    totalBilletesDeDiez = 2;
+  } else {
+    totalBilletesDeDiez = 1;
   }
-  probar = validar - 10000 * variaBillete10;
-  variaBillete20 = probar / 20000;
+  saldoRestante -= 10000 * totalBilletesDeDiez;
+  totalBilletesDeVeinte = saldoRestante / 20000;
 }
 
 function mostrarAlerta(msg) {
@@ -85,44 +82,37 @@ function mostrarRetiroHTML() {
     document.querySelector("#cantidad").value
   }`;
 
-  const billete10Parrafo = document.createElement("p");
-  billete10Parrafo.textContent = "Cantidad de billetes de $10.000: ";
+  const billeteDiezParrafo = document.createElement("p");
+  billeteDiezParrafo.textContent = "Cantidad de billetes de $10.000: ";
 
-  const billete10Span = document.createElement("span");
-  billete10Span.textContent = variaBillete10;
+  const billeteDiezSpan = document.createElement("span");
+  billeteDiezSpan.textContent = totalBilletesDeDiez;
 
-  billete10Parrafo.appendChild(billete10Span);
+  billeteDiezParrafo.appendChild(billeteDiezSpan);
 
-  const billete20Parrafo = document.createElement("p");
-  billete20Parrafo.textContent = "Cantidad de billetes de $20.000: ";
+  const billeteVeinteParrafo = document.createElement("p");
+  billeteVeinteParrafo.textContent = "Cantidad de billetes de $20.000: ";
 
-  const billete20Span = document.createElement("span");
-  billete20Span.textContent = variaBillete20;
+  const billeteVeinteSpan = document.createElement("span");
+  billeteVeinteSpan.textContent = totalBilletesDeVeinte;
 
-  billete20Parrafo.appendChild(billete20Span);
+  billeteVeinteParrafo.appendChild(billeteVeinteSpan);
 
-  const billete50Parrafo = document.createElement("p");
-  billete50Parrafo.textContent = "Cantidad de billetes de $50.000: ";
+  const billeteCincuentaParrafo = document.createElement("p");
+  billeteCincuentaParrafo.textContent = "Cantidad de billetes de $50.000: ";
 
-  const billete50Span = document.createElement("span");
-  billete50Span.textContent = parseInt(variaBillete50);
+  const billeteCincuentaSpan = document.createElement("span");
+  billeteCincuentaSpan.textContent = parseInt(totalBilletesDeCincuenta);
 
-  billete50Parrafo.appendChild(billete50Span);
+  billeteCincuentaParrafo.appendChild(billeteCincuentaSpan);
 
-  dinero.appendChild(billete10Parrafo);
-  dinero.appendChild(billete20Parrafo);
-  dinero.appendChild(billete50Parrafo);
+  dinero.appendChild(billeteDiezParrafo);
+  dinero.appendChild(billeteVeinteParrafo);
+  dinero.appendChild(billeteCincuentaParrafo);
 }
 
 function limpiarHTML() {
   while (dinero.firstChild) {
     dinero.removeChild(dinero.firstChild);
   }
-}
-
-function restablecerValores() {
-  variaBillete10 = 1;
-  variaBillete20 = 1;
-  variaBillete50 = 0;
-  total = 0;
 }
