@@ -1,11 +1,8 @@
-import { showAlert } from "./showAlert.js";
 export function quantityLetters(letters) {
   const array = [];
   let count = 1;
   for (let i = 0; i < letters.length; i++) {
-    if (Number(letters[i])) {
-      showAlert("There are numbers in the sentence");
-    } else if (
+    if (
       letters[i] !== " " &&
       letters[i] !== "," &&
       letters[i] !== "." &&

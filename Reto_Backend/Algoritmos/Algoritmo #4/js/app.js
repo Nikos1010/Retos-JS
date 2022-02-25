@@ -1,7 +1,7 @@
-/* un algoritmo para idetificar que tipo de triangulo es a partir de recibir los 3 lados, ejemplo 
-si recibe 3,3,3 debe retornar que es un triangulo equilatero
-Equilatero, Isoceles, Escaleno
-*/
-import { validar } from "./funciones.js";
+/* recibir una frase y retornar cuantas letras tiene de cada una, es decir si escribo 
+"el murcielago del archipielago come frutas" debe retornar A -> 4 E->5 L->4 M->2 U->2 R-3....
+ */
+import { validate } from "./validate.js";
+import { form } from "./selectors.js";
 
-form.addEventListener("submit", validar);
+form.addEventListener("submit", validate);

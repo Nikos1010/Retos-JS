@@ -13,7 +13,7 @@ export function validate(e) {
   const emptyField = [sentence].some((field) => field === "");
 
   if (emptyField) {
-    showAlert(`Error, The field must have at least one letter`);
+    showAlert(`Error el campo debe de estar lleno`);
     return;
   }
 
