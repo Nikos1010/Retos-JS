@@ -1,25 +1,28 @@
 import { showAlert } from "./showAlert.js";
-import { divide } from "./divideWords.js";
-import { orderLetters } from "./orderLetters.js";
+import { triangleType } from "./triangleType.js";
 import { form } from "./selectors.js";
 import { showHTML } from "./showHTML.js";
 
-export let quantity;
+export let triangle, sidesTriangle;
 
 export function validate(e) {
   e.preventDefault();
-  const sentence = document.querySelector("#sentence").value;
+  const sideOne = document.querySelector("#sideOne").value;
+  const sideTwo = document.querySelector("#sideTwo").value;
+  const sideThree = document.querySelector("#sideThree").value;
 
-  const emptyField = [sentence].some((field) => field === "");
+  const emptyField = [sideOne, sideTwo, sideThree].some(
+    (field) => field === "" || field === "0"
+  );
 
   if (emptyField) {
-    showAlert(`Error el campo debe de estar lleno`);
+    showAlert(`Error, The field must have at least one letter`);
     return;
   }
 
   //Se verifica el saldo
-  const letters = divide(sentence);
-  quantity = orderLetters(letters);
+  triangle = triangleType(sideOne, sideTwo, sideThree);
+  sidesTriangle = [sideOne, sideTwo, sideThree];
   showHTML();
   form.reset();
 }

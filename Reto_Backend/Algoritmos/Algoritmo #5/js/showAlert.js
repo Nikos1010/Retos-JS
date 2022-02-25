@@ -3,7 +3,7 @@ import { wait, form } from "./selectors.js";
 
 export function showAlert(msg) {
   cleanHTML();
-  wait.textContent = "Wait Sides";
+  wait.textContent = "Wait Number";
 
   const existsAlert = document.querySelector(".invalid-feedback");
   if (!existsAlert) {
