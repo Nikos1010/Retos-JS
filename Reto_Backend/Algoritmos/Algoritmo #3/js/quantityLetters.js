@@ -12,7 +12,8 @@ export function quantityLetters(letters) {
       letters[i] !== "-" &&
       letters[i] !== "+" &&
       letters[i] !== "/" &&
-      letters[i] !== "*"
+      letters[i] !== "*" &&
+      letters[i] !== "@"
     ) {
       if (letters[i] === letters[i + 1]) {
         count++;
