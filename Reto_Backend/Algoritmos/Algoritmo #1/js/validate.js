@@ -3,7 +3,7 @@ import { numberToWord } from "./numberToWord.js";
 import { form } from "./selectors.js";
 import { showHTML } from "./showHTML.js";
 
-export let quantity;
+export let words;
 
 export function validate(e) {
   e.preventDefault();
@@ -12,14 +12,16 @@ export function validate(e) {
   const emptyField = [number].some((field) => field === "");
 
   if (emptyField) {
-    showAlert(`Error, The field must have at least one letter`);
+    showAlert(`Error, The field must have at least one number`);
     return;
   }
 
   //Se verifica el saldo
-  const words = numberToWord(Number(number));
-  console.log(words);
-  //quantity = orderLetters(letters);
-  //showHTML();
+  if (number === "0") {
+    words = "zero";
+  } else {
+    words = numberToWord(Number(number));
+  }
+  showHTML();
   form.reset();
 }

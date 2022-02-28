@@ -1,20 +1,16 @@
 import { cleanHTML } from "./cleanHTML.js";
 import { wait, result } from "./selectors.js";
-import { quantity } from "./validate.js";
+import { words } from "./validate.js";
 
 export function showHTML() {
   cleanHTML();
 
-  wait.textContent = `The sentence is: ${
-    document.querySelector("#sentence").value
+  wait.textContent = `The Number is: ${
+    document.querySelector("#number").value
   }`;
 
-  quantity.forEach((letter) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-    <td>${letter}</td>
-    `;
+  const wordParragraph = document.createElement("p");
+  wordParragraph.textContent = `On sentence: ${words}`;
 
-    result.appendChild(row);
-  });
+  result.appendChild(wordParragraph);
 }
