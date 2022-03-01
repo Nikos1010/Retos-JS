@@ -7,9 +7,9 @@ export function greaterOneThousand(number) {
 
   if (thousand < 1000) {
     let greaterTenThousand = numberToWord(thousand);
-    word = `${greaterTenThousand} thousand ${numberToWord(number % 1000)}`;
-  } else {
-    word = greaterOneMillion(number);
+    return (word = `${greaterTenThousand} thousand ${numberToWord(
+      number % 1000
+    )}`);
   }
-  return word;
+  return (word = greaterOneMillion(number));
 }

@@ -14,9 +14,11 @@ export function validate(e) {
   if (emptyField) {
     showAlert(`Error, The field must have at least one number`);
     return;
+  } else if (Number(number) > 100000000) {
+    showAlert(`Error, The number is greater than one hundred million`);
+    return;
   }
 
-  //Se verifica el saldo
   if (number === "0") {
     words = "zero";
   } else {

@@ -2,7 +2,9 @@ import { greaterFourteen } from "./greaterFourteen.js";
 
 export function numberToWord(number) {
   let word = "";
-  if (number === 1) {
+  if (number === 0) {
+    word = "";
+  } else if (number === 1) {
     word = "one";
   } else if (number === 2) {
     word = "two";
