@@ -1,27 +1,17 @@
 import { showAlert } from "./showAlert.js";
-export function quantityLetters(letters) {
-  const array = [];
-  let count = 1;
-  for (let i = 0; i < letters.length; i++) {
-    if (Number(letters[i])) {
-      showAlert("There are numbers in the sentence");
-    } else if (
-      letters[i] !== " " &&
-      letters[i] !== "," &&
-      letters[i] !== "." &&
-      letters[i] !== "-" &&
-      letters[i] !== "+" &&
-      letters[i] !== "/" &&
-      letters[i] !== "*" &&
-      letters[i] !== "@"
-    ) {
-      if (letters[i] === letters[i + 1]) {
-        count++;
+export function quantityLetters(words) {
+  const lettersAcept = "^[a-zA-Z*]$";
+  const dictionary = {};
+  if (words.search(lettersAcept)) {
+    showAlert("There are numbers or special characteres in the sentence");
+  } else {
+    for (let letter of words) {
+      if (dictionary[letter] == undefined) {
+        dictionary[letter] = 1;
       } else {
-        array.push(`${letters[i]} => ${count}`);
-        count = 1;
+        dictionary[letter]++;
       }
     }
+    return dictionary;
   }
-  return array;
 }

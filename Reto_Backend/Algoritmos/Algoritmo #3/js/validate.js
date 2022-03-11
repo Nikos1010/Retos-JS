@@ -1,8 +1,7 @@
 import { showAlert } from "./showAlert.js";
-import { divide } from "./divideWords.js";
-import { orderLetters } from "./orderLetters.js";
 import { form } from "./selectors.js";
 import { showHTML } from "./showHTML.js";
+import { quantityLetters } from "./quantityLetters.js";
 
 export let quantity;
 
@@ -18,8 +17,7 @@ export function validate(e) {
   }
 
   //Se verifica el saldo
-  const letters = divide(sentence);
-  quantity = orderLetters(letters);
+  quantity = quantityLetters(sentence.toUpperCase());
   showHTML();
   form.reset();
 }

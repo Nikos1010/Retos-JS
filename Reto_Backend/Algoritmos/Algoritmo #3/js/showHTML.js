@@ -9,12 +9,11 @@ export function showHTML() {
     document.querySelector("#sentence").value
   }`;
 
-  quantity.forEach((letter) => {
-    const row = document.createElement("tr");
+  for (const letter in quantity) {
+    const row = document.createElement("div");
     row.innerHTML = `
-    <td>${letter}</td>
-    `;
-
+        <p>${letter} => <span>${quantity[letter]}</span></p>
+        `;
     result.appendChild(row);
-  });
+  }
 }

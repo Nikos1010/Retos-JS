@@ -16,7 +16,6 @@ export function validate(e) {
     return;
   }
 
-  //Se verifica el saldo
   primeResult = numberPrime(number);
   showHTML();
   form.reset();

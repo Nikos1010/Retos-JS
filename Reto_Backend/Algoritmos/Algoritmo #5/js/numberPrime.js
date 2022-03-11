@@ -2,7 +2,7 @@ export function numberPrime(prime) {
   let type, cont;
   const number = Number(prime);
   if (number === 1) {
-    type = `${prime} no es primo`;
+    type = `${prime} isn't prime`;
   } else {
     cont = 0;
     for (let i = 1; i <= number; i++) {
