@@ -1,22 +1,15 @@
+import {formulario,nombreInput, apellidoInput, edadInput, emailInput, telefonoInput, passwordInput} from './selectores.js';
+import {darColor, validarCaracteres,validarEdad, validarEmail, validarPassword, validarTelefono} from './validaciones.js';
+import { imprimirAlerta } from './imprimirAlerta.js';
 (function () {
   let DB;
   let idUsuario;
-
-  const nombreInput = document.querySelector('#nombre');
-  const apellidoInput = document.querySelector('#apellido');
-  const edadInput = document.querySelector('#edad');
-  const emailInput = document.querySelector('#email');
-  const telefonoInput = document.querySelector('#telefono');
-  const passwordInput = document.querySelector('#password');
-
-  const formulario = document.querySelector("#formulario");
 
   document.addEventListener("DOMContentLoaded", () => {
     conectarDB();
 
     formulario.addEventListener("submit", editarUsuario);
 
-    //Verificar el ID de la URL
     const parametrosURL = new URLSearchParams(window.location.search);
     idUsuario = parametrosURL.get("id");
     console.log(idUsuario)
@@ -29,45 +22,49 @@
 
   function editarUsuario(e) {
     e.preventDefault();
+    let prueba = true;
 
-    if (
-      nombre.value === "" ||
-      apellido.value === "" ||
-      edad.value === "" ||
-      email.value === "" ||
-      telefono.value === "" ||
-      password.value === ""
-    ) {
-      imprimirAlerta("Todos los campos son obligatorios", "error");
-      return;
+    prueba = validarCaracteres(nombreInput.value, 'nombre');
+    darColor(nombreInput, prueba);
+    prueba = validarCaracteres(apellidoInput.value, 'apellido');
+    darColor(apellidoInput, prueba);
+    prueba = validarEdad(edadInput.value);
+    darColor(edadInput, prueba);
+    prueba = validarEmail(emailInput.value);
+    darColor(emailInput, prueba);
+    prueba = validarTelefono(telefonoInput.value);
+    darColor(telefonoInput, prueba);
+    prueba = validarPassword(passwordInput.value);
+    darColor(passwordInput, prueba);
+
+    if(prueba) {
+      const usuarioActualizado = {
+        nombre: nombre.value,
+        apellido: apellido.value,
+        edad: edad.value,
+        email: email.value,
+        telefono: telefono.value,
+        password: password.value,
+        id: Number(idUsuario),
+      };
+
+      const transaction = DB.transaction(["form"], "readwrite");
+      const objectStore = transaction.objectStore("form");
+  
+      objectStore.put(usuarioActualizado);
+  
+      transaction.oncomplete = function () {
+        imprimirAlerta("Editado correctamente");
+  
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 3000);
+      };
+  
+      transaction.onerror = function () {
+        imprimirAlerta("Hubo un error", "error");
+      };
     }
-
-    const usuarioActualizado = {
-      nombre: nombre.value,
-      apellido: apellido.value,
-      edad: edad.value,
-      email: email.value,
-      telefono: telefono.value,
-      password: password.value,
-      id: Number(idUsuario),
-    };
-
-    const transaction = DB.transaction(["form"], "readwrite");
-    const objectStore = transaction.objectStore("form");
-
-    objectStore.put(usuarioActualizado);
-
-    transaction.oncomplete = function () {
-      imprimirAlerta("Editado correctamente");
-
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 3000);
-    };
-
-    transaction.onerror = function () {
-      imprimirAlerta("Hubo un error", "error");
-    };
   }
 
   function obtenerUsuario(id) {

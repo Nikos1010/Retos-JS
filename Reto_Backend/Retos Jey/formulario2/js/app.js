@@ -1,3 +1,4 @@
+import { imprimirAlerta} from './imprimirAlerta.js';
 (function () {
   let DB;
   const listadoUsuarios = document.querySelector('#listado-usuarios');
@@ -54,7 +55,7 @@
         objectStore.delete(idEliminar);
 
         transaction.oncomplete = function() {
-          //imprimirAlerta('Se elimino correctamente');
+          imprimirAlerta('Se elimino correctamente');
 
           e.target.parentElement.parentElement.remove();
         }
