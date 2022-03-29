@@ -22,7 +22,6 @@ import { imprimirAlerta} from './imprimirAlerta.js';
 
     crearDB.onsuccess = function() {
       DB = crearDB.result;
-      console.log(DB)
     }
 
     crearDB.onupgradeneeded = function(e) {
@@ -65,7 +64,7 @@ import { imprimirAlerta} from './imprimirAlerta.js';
         }
       }
     }
-  }
+  } 
 
   function obtenerUsuarios() {
     const abrirConexion = window.indexedDB.open('form', 1);
@@ -89,7 +88,7 @@ import { imprimirAlerta} from './imprimirAlerta.js';
           listadoUsuarios.innerHTML += `
               <tr>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                    <p class="text-sm leading-10 text-gray-700"> ${nombre} </p>
+                    <p class="text-sm leading-10 text-gray-700">${nombre} </p>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
                     <p class="text-gray-700">${apellido}</p>
@@ -105,7 +104,7 @@ import { imprimirAlerta} from './imprimirAlerta.js';
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                     <a href="editar-usuario.html?id=${id}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
-                    <a href="#" data-usuario="${id}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
+                    <a href="index.html" data-usuario="${id}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
                 </td>
               </tr>
           `;

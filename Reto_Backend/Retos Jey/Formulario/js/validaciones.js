@@ -27,9 +27,10 @@ export  function validarEdad(edad) {
 }
 
 export  function validarEmail(email) {
+  const regex = /^[a-zA-Z0-9\.\_]@[a-z]+\.com$/.test(email);
   let arroba = email.indexOf('@');
   const dominio = email.slice(arroba+1,arroba+3);
-  if(arroba > 2 && email.includes('@') && dominio === 'gm' || dominio === 'ou') {
+  if(arroba > 2 && email.includes('@') && dominio === 'gm' || dominio === 'ou'&& regex) {
     if( email.includes("gmail.com") || email.includes("outlook.com")) {
         //Correo valido
     } else {
