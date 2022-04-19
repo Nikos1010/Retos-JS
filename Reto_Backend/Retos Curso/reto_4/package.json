@@ -1,0 +1,21 @@
+{
+  "name": "reto_4",
+  "version": "1.0.0",
+  "description": "Reto N° 4 del curso",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "dev": "nodemon app.js"
+  },
+  "author": "Noith",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.0.2"
+  }
+}
